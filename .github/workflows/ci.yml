@@ -1,0 +1,31 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_HOST_AUTH_METHOD: trust }
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 20
+      redis:
+        image: redis:7
+        ports: ["6379:6379"]
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-osd poppler-utils
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @autoapply/workers exec playwright install --with-deps chromium
+      - run: psql -c "create database autoapply_test" -c "create database autoapply_e2e"
+      - run: pnpm build && pnpm build:web
+      - run: pnpm test:unit
+      - run: pnpm test:integration
+      - run: pnpm --filter @autoapply/workers run test
+      - run: pnpm test:e2e

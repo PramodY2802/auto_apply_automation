@@ -1,0 +1,22 @@
+{
+  "jobs": [
+    {
+      "id": 4012345,
+      "title": "Senior Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/examplecorp/jobs/4012345",
+      "updated_at": "2026-11-01T10:00:00-04:00",
+      "first_published": "2026-10-30T10:00:00-04:00",
+      "location": { "name": "Remote - India" },
+      "content": "&lt;p&gt;We build payments infrastructure.&lt;/p&gt;&lt;h3&gt;Requirements&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;5+ years of experience&lt;/li&gt;&lt;li&gt;Python, PostgreSQL&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Nice to have&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;Kubernetes&lt;/li&gt;&lt;/ul&gt;"
+    },
+    {
+      "id": 4012399,
+      "title": "Product Designer",
+      "absolute_url": "https://boards.greenhouse.io/examplecorp/jobs/4012399",
+      "updated_at": "2026-11-01T10:00:00-04:00",
+      "location": { "name": "New York, NY" },
+      "content": "&lt;p&gt;Design things.&lt;/p&gt;"
+    }
+  ],
+  "meta": { "total": 2 }
+}

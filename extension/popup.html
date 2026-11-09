@@ -1,0 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="popup.css"></head>
+<body>
+  <header><strong>AutoApply</strong><span id="who"></span></header>
+  <section id="setup" hidden>
+    <label>App URL<input id="apiBase" placeholder="https://app.example.com"></label>
+    <label>Extension token<input id="token" type="password" placeholder="aa_pat_…"></label>
+    <p class="hint">Create a token in AutoApply → Settings → Extension.</p>
+    <button id="save">Connect</button>
+  </section>
+  <section id="main" hidden>
+    <button id="capture">Capture this job</button>
+    <button id="fill">Fill approved answers</button>
+    <button id="submitted">I submitted this application</button>
+    <button id="session" class="secondary">Mark this platform as signed in</button>
+    <button id="disconnect" class="link">Disconnect</button>
+  </section>
+  <pre id="out" aria-live="polite"></pre>
+  <script src="popup.js"></script>
+</body></html>

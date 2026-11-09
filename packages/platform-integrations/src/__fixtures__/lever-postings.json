@@ -1,0 +1,15 @@
+[
+  {
+    "id": "a1b2c3d4-0000-4000-8000-000000000001",
+    "text": "Backend Engineer, Platform",
+    "hostedUrl": "https://jobs.lever.co/examplelabs/a1b2c3d4-0000-4000-8000-000000000001",
+    "applyUrl": "https://jobs.lever.co/examplelabs/a1b2c3d4-0000-4000-8000-000000000001/apply",
+    "createdAt": 1761800000000,
+    "workplaceType": "hybrid",
+    "categories": { "commitment": "Full-time", "location": "Bengaluru", "team": "Engineering" },
+    "descriptionPlain": "Join our platform team. 3-5 years of experience required.",
+    "lists": [{ "text": "Requirements", "content": "<li>Node.js and TypeScript</li><li>AWS</li>" }],
+    "additionalPlain": "",
+    "salaryRange": { "currency": "INR", "interval": "per-year-salary", "min": 2500000, "max": 4000000 }
+  }
+]

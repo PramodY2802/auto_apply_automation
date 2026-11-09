@@ -1,0 +1,34 @@
+{
+  "name": "@autoapply/workers",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BullMQ background workers: document processing, discovery, matching, application preparation/submission (Playwright), sync, notifications, billing, scheduler",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node --env-file-if-exists=../.env dist/main.js",
+    "dev": "tsc -p tsconfig.build.json && node --env-file-if-exists=../.env dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run test/unit",
+    "test:e2e": "vitest run test/e2e"
+  },
+  "dependencies": {
+    "@autoapply/database": "workspace:*",
+    "@autoapply/platform-integrations": "workspace:*",
+    "@autoapply/services": "workspace:*",
+    "@autoapply/shared": "workspace:*",
+    "bullmq": "^5.30.0",
+    "ioredis": "^5.4.0",
+    "playwright": "1.63.0"
+  },
+  "devDependencies": {
+    "@autoapply/api": "workspace:*",
+    "@autoapply/ai-providers": "workspace:*",
+    "@autoapply/sandbox-board": "workspace:*",
+    "@node-rs/argon2": "^2.0.2",
+    "@nestjs/common": "^11.1.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

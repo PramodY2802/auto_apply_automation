@@ -1,0 +1,11 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "workers"
+onlyBuiltDependencies:
+  - "@node-rs/argon2"
+  - "@swc/core"
+  - esbuild
+  - sharp
+  - "@nestjs/core"
+  - unrs-resolver

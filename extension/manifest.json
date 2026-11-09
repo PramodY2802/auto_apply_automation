@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "AutoApply Assistant",
+  "version": "0.1.0",
+  "description": "Capture job postings you are viewing, fill your approved application answers, and report submissions to AutoApply.",
+  "minimum_chrome_version": "116",
+  "action": { "default_popup": "popup.html", "default_title": "AutoApply" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "optional_host_permissions": ["https://*/*", "http://localhost/*", "http://127.0.0.1/*"],
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}

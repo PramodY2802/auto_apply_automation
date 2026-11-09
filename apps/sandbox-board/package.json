@@ -1,0 +1,15 @@
+{
+  "name": "@autoapply/sandbox-board",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Controlled test job board used for automated discovery/application E2E tests. Never a real employer.",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node --env-file-if-exists=../../.env dist/main.js",
+    "dev": "tsc -p tsconfig.json && node --env-file-if-exists=../../.env dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": { "busboy": "^1.6.0" },
+  "devDependencies": { "@types/busboy": "^1.5.4", "@types/node": "^22.0.0", "typescript": "^5.9.0" }
+}

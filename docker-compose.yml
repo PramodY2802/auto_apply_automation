@@ -1,0 +1,97 @@
+# Local/full-stack environment. Copy .env.example to .env first.
+#   docker compose up -d --build
+# Web: http://localhost:3000  API docs: http://localhost:4000/api/docs  MinIO console: http://localhost:9001
+name: autoapply
+
+x-app-env: &app-env
+  NODE_ENV: production
+  DATABASE_URL: postgresql://autoapply:autoapply@postgres:5432/autoapply
+  REDIS_URL: redis://redis:6379
+  ENCRYPTION_KEYS: ${ENCRYPTION_KEYS:?set ENCRYPTION_KEYS in .env}
+  WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3000}
+  COOKIE_SECURE: ${COOKIE_SECURE:-false}
+  STORAGE_DRIVER: s3
+  S3_BUCKET: autoapply
+  S3_REGION: us-east-1
+  S3_ENDPOINT: http://minio:9000
+  S3_FORCE_PATH_STYLE: "true"
+  S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-autoapply}
+  S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-autoapply-secret}
+  SMTP_URL: ${SMTP_URL:-}
+  MAIL_FROM: ${MAIL_FROM:-AutoApply <no-reply@localhost>}
+  SANDBOX_BOARD_URL: http://sandbox:4100
+  OCR_ENGINE: ${OCR_ENGINE:-tesseract}
+  GOOGLE_VISION_API_KEY: ${GOOGLE_VISION_API_KEY:-}
+  PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-manual}
+  STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+  LOG_LEVEL: ${LOG_LEVEL:-info}
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: autoapply, POSTGRES_PASSWORD: autoapply, POSTGRES_DB: autoapply }
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U autoapply"], interval: 5s, retries: 20 }
+    ports: ["5432:5432"]
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redisdata:/data]
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 5s, retries: 20 }
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment: { MINIO_ROOT_USER: "${MINIO_ROOT_USER:-autoapply}", MINIO_ROOT_PASSWORD: "${MINIO_ROOT_PASSWORD:-autoapply-secret}" }
+    volumes: [miniodata:/data]
+    ports: ["9001:9001"]
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on: [minio]
+    entrypoint: ["sh", "-c", "until mc alias set local http://minio:9000 $${MINIO_ROOT_USER:-autoapply} $${MINIO_ROOT_PASSWORD:-autoapply-secret}; do sleep 1; done; mc mb -p local/autoapply"]
+
+  migrate:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: migrate }
+    environment: *app-env
+    depends_on: { postgres: { condition: service_healthy } }
+
+  api:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: api }
+    environment: *app-env
+    depends_on: { migrate: { condition: service_completed_successfully }, redis: { condition: service_healthy } }
+    ports: ["4000:4000"]
+
+  # Workers split by responsibility; scale independently (docker compose up --scale worker-browser=3).
+  worker-documents:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: workers }
+    environment: { <<: *app-env, WORKER_QUEUES: "document-processing" }
+    depends_on: { migrate: { condition: service_completed_successfully } }
+  worker-discovery:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: workers }
+    environment: { <<: *app-env, WORKER_QUEUES: "job-discovery,job-matching" }
+    depends_on: { migrate: { condition: service_completed_successfully } }
+  worker-browser:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: workers }
+    environment: { <<: *app-env, WORKER_QUEUES: "application-preparation,application-submission", BROWSER_MAX_CONCURRENCY: "2" }
+    shm_size: 1gb
+    depends_on: { migrate: { condition: service_completed_successfully } }
+  worker-system:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: workers }
+    environment: { <<: *app-env, WORKER_QUEUES: "application-sync,notifications,billing,scheduler" }
+    depends_on: { migrate: { condition: service_completed_successfully } }
+
+  web:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: web }
+    environment: { API_INTERNAL_URL: "http://api:4000" }
+    depends_on: [api]
+    ports: ["3000:3000"]
+
+  # Controlled test job board (never a real employer). Remove in production.
+  sandbox:
+    build: { context: ., dockerfile: infrastructure/docker/Dockerfile, target: sandbox }
+    environment: { SANDBOX_PUBLIC_URL: "http://sandbox:4100" }
+    ports: ["4100:4100"]
+
+volumes: { pgdata: {}, redisdata: {}, miniodata: {} }

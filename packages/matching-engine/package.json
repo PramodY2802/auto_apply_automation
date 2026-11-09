@@ -1,0 +1,10 @@
+{
+  "name": "@autoapply/matching-engine",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit", "test": "vitest run" },
+  "dependencies": { "@autoapply/shared": "workspace:*" },
+  "devDependencies": { "typescript": "^5.9.0", "vitest": "^3.2.0", "@types/node": "^22.0.0" }
+}

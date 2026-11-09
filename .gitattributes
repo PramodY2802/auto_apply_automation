@@ -1,0 +1,14 @@
+# Store text with LF line endings (the project targets Linux/Docker).
+* text=auto eol=lf
+
+# Binary files: never convert line endings (would corrupt test fixtures).
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.docx binary
+*.doc  binary
+*.zip  binary

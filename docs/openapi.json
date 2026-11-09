@@ -1,0 +1,3740 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "operationId": "HealthController_live_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/v1/health/ready": {
+      "get": {
+        "operationId": "HealthController_ready_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/v1/auth/signup": {
+      "post": {
+        "operationId": "AuthController_signup_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "maxLength": 254,
+                    "format": "email",
+                    "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 200,
+                    "allOf": [
+                      {
+                        "pattern": "[A-Za-z]"
+                      },
+                      {
+                        "pattern": "[0-9]"
+                      }
+                    ]
+                  },
+                  "fullName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  },
+                  "accountType": {
+                    "default": "INDIVIDUAL",
+                    "type": "string",
+                    "enum": [
+                      "INDIVIDUAL",
+                      "ENTERPRISE"
+                    ]
+                  },
+                  "enterpriseName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 120
+                  },
+                  "invitationToken": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 200
+                  }
+                },
+                "required": [
+                  "email",
+                  "password",
+                  "fullName"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "AuthController_login_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/verify-email": {
+      "post": {
+        "operationId": "AuthController_verify_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/resend-verification": {
+      "post": {
+        "operationId": "AuthController_resend_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/password/forgot": {
+      "post": {
+        "operationId": "AuthController_forgot_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/password/reset": {
+      "post": {
+        "operationId": "AuthController_reset_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/password/change": {
+      "post": {
+        "operationId": "AuthController_change_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "operationId": "AccountController_me_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      },
+      "put": {
+        "operationId": "AccountController_update_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      },
+      "delete": {
+        "operationId": "AccountController_deleteAccount_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      }
+    },
+    "/api/v1/me/sessions": {
+      "get": {
+        "operationId": "AccountController_sessions_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      }
+    },
+    "/api/v1/me/sessions/{id}": {
+      "delete": {
+        "operationId": "AccountController_revokeSession_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      }
+    },
+    "/api/v1/me/api-tokens": {
+      "get": {
+        "operationId": "AccountController_tokens_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      },
+      "post": {
+        "operationId": "AccountController_createToken_v1",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      }
+    },
+    "/api/v1/me/api-tokens/{id}": {
+      "delete": {
+        "operationId": "AccountController_revokeToken_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      }
+    },
+    "/api/v1/me/export": {
+      "get": {
+        "operationId": "AccountController_export_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "account"
+        ]
+      }
+    },
+    "/api/v1/resumes": {
+      "post": {
+        "operationId": "ResumesController_upload_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      },
+      "get": {
+        "operationId": "ResumesController_list_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/resumes/{id}/extraction": {
+      "get": {
+        "operationId": "ResumesController_extraction_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/resumes/{id}/extraction/apply": {
+      "post": {
+        "operationId": "ResumesController_applyExtraction_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/resumes/{id}/reprocess": {
+      "post": {
+        "operationId": "ResumesController_reprocess_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/resumes/{id}/primary": {
+      "post": {
+        "operationId": "ResumesController_primary_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/resumes/{id}/file": {
+      "get": {
+        "operationId": "ResumesController_download_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/resumes/{id}": {
+      "delete": {
+        "operationId": "ResumesController_remove_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "resumes"
+        ]
+      }
+    },
+    "/api/v1/profile": {
+      "get": {
+        "operationId": "ProfileController_get_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "profile"
+        ]
+      },
+      "put": {
+        "operationId": "ProfileController_update_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 200
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "email": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "email",
+                        "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "phone": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 40
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "location": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "headline": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "summary": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 5000
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "currentTitle": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 200
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "totalExperienceMonths": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 800
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "links": {
+                    "type": "object",
+                    "properties": {
+                      "linkedin": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 500
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "github": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 500
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "portfolio": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 500
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "other": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "maxLength": 500
+                        }
+                      }
+                    }
+                  },
+                  "experiences": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "company": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "title": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "location": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "startDate": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(\\d{4}(-(0[1-9]|1[0-2]))?|present)$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "endDate": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(\\d{4}(-(0[1-9]|1[0-2]))?|present)$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "isCurrent": {
+                          "default": false,
+                          "type": "boolean"
+                        },
+                        "description": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 8000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "sourcePage": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "company",
+                        "title"
+                      ]
+                    }
+                  },
+                  "education": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "institution": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "degree": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "field": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "startDate": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(\\d{4}(-(0[1-9]|1[0-2]))?|present)$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "endDate": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(\\d{4}(-(0[1-9]|1[0-2]))?|present)$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "grade": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "sourcePage": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "institution"
+                      ]
+                    }
+                  },
+                  "skills": {
+                    "maxItems": 300,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 80
+                        },
+                        "category": {
+                          "default": "TECHNICAL",
+                          "type": "string",
+                          "enum": [
+                            "TECHNICAL",
+                            "SOFT",
+                            "PROGRAMMING_LANGUAGE",
+                            "FRAMEWORK",
+                            "DATABASE",
+                            "CLOUD",
+                            "TOOL",
+                            "OTHER"
+                          ]
+                        },
+                        "years": {
+                          "anyOf": [
+                            {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 60
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "certifications": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 300
+                        },
+                        "issuer": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 2000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "date": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(\\d{4}(-(0[1-9]|1[0-2]))?|present)$"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "projects": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 300
+                        },
+                        "description": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 4000
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "technologies": {
+                          "default": [],
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "maxLength": 80
+                          }
+                        },
+                        "url": {
+                          "default": null,
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 500
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "achievements": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 1000
+                    }
+                  },
+                  "markReviewed": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/api/v1/preferences": {
+      "get": {
+        "operationId": "ProfileController_getPrefs_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "profile"
+        ]
+      },
+      "put": {
+        "operationId": "ProfileController_savePrefs_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "titles": {
+                    "minItems": 1,
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    }
+                  },
+                  "experienceBand": {
+                    "default": "CUSTOM",
+                    "type": "string",
+                    "enum": [
+                      "FRESHER",
+                      "0-1",
+                      "1-3",
+                      "3-5",
+                      "5-8",
+                      "8+",
+                      "CUSTOM"
+                    ]
+                  },
+                  "experienceMinYears": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 50
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "experienceMaxYears": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 60
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "locations": {
+                    "default": [],
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 120
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "state": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 120
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "country": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 120
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "workModes": {
+                    "default": [
+                      "REMOTE",
+                      "HYBRID",
+                      "ONSITE"
+                    ],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "REMOTE",
+                        "HYBRID",
+                        "ONSITE"
+                      ]
+                    }
+                  },
+                  "employmentTypes": {
+                    "default": [
+                      "FULL_TIME"
+                    ],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "FULL_TIME",
+                        "PART_TIME",
+                        "CONTRACT",
+                        "INTERNSHIP",
+                        "TEMPORARY",
+                        "FREELANCE"
+                      ]
+                    }
+                  },
+                  "salaryMin": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "salaryMax": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "salaryCurrency": {
+                    "default": "USD",
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 3
+                  },
+                  "salaryPeriod": {
+                    "default": "YEAR",
+                    "type": "string",
+                    "enum": [
+                      "YEAR",
+                      "MONTH",
+                      "HOUR"
+                    ]
+                  },
+                  "industries": {
+                    "default": [],
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 120
+                    }
+                  },
+                  "preferredCompanies": {
+                    "default": [],
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 120
+                    }
+                  },
+                  "excludedCompanies": {
+                    "default": [],
+                    "maxItems": 200,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 120
+                    }
+                  },
+                  "noticePeriodDays": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 365
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "keywords": {
+                    "default": [],
+                    "maxItems": 50,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "maxLength": 80
+                    }
+                  },
+                  "maxPostingAgeDays": {
+                    "default": 30,
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 365
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "searchFrequency": {
+                    "default": "MANUAL",
+                    "type": "string",
+                    "enum": [
+                      "MANUAL",
+                      "DAILY",
+                      "TWICE_DAILY",
+                      "WEEKLY"
+                    ]
+                  },
+                  "platforms": {
+                    "default": [
+                      "sandbox"
+                    ],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "sandbox",
+                        "greenhouse",
+                        "lever",
+                        "linkedin",
+                        "indeed",
+                        "naukri"
+                      ]
+                    }
+                  },
+                  "applicationMode": {
+                    "default": "MANUAL",
+                    "type": "string",
+                    "enum": [
+                      "MANUAL",
+                      "AUTOMATIC"
+                    ]
+                  },
+                  "autoApplyMinScore": {
+                    "default": 75,
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "dailyApplicationLimit": {
+                    "default": 10,
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 200
+                  },
+                  "autoApplyConsent": {
+                    "default": false,
+                    "type": "boolean"
+                  },
+                  "answerPreferences": {
+                    "default": {
+                      "tone": "professional",
+                      "maxLength": 600,
+                      "alwaysRequireApproval": false,
+                      "workAuthorizationCountries": [],
+                      "requiresSponsorship": null,
+                      "willingToRelocate": null,
+                      "availableFrom": null
+                    },
+                    "type": "object",
+                    "properties": {
+                      "tone": {
+                        "default": "professional",
+                        "type": "string",
+                        "enum": [
+                          "concise",
+                          "professional",
+                          "enthusiastic"
+                        ]
+                      },
+                      "maxLength": {
+                        "default": 600,
+                        "type": "integer",
+                        "minimum": 50,
+                        "maximum": 4000
+                      },
+                      "alwaysRequireApproval": {
+                        "default": false,
+                        "type": "boolean"
+                      },
+                      "workAuthorizationCountries": {
+                        "default": [],
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "maxLength": 80
+                        }
+                      },
+                      "requiresSponsorship": {
+                        "default": null,
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "willingToRelocate": {
+                        "default": null,
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "availableFrom": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 40
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "titles"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/api/v1/jobs": {
+      "get": {
+        "operationId": "JobsController_list_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/views/counts": {
+      "get": {
+        "operationId": "JobsController_counts_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/{id}": {
+      "get": {
+        "operationId": "JobsController_get_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/{id}/flags/{action}": {
+      "post": {
+        "operationId": "JobsController_flag_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/bulk": {
+      "post": {
+        "operationId": "JobsController_bulk_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/jobs/capture": {
+      "post": {
+        "operationId": "JobsController_capture_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "maxLength": 2000,
+                    "format": "uri"
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 300
+                  },
+                  "company": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 300
+                  },
+                  "description": {
+                    "default": "",
+                    "type": "string",
+                    "maxLength": 100000
+                  },
+                  "location": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "employmentType": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 60
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "postedAt": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 60
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "salaryText": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 200
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "externalId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 300
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "platformHint": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "sandbox",
+                          "greenhouse",
+                          "lever",
+                          "linkedin",
+                          "indeed",
+                          "naukri"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "url",
+                  "title",
+                  "company"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "jobs"
+        ]
+      }
+    },
+    "/api/v1/discovery/runs": {
+      "post": {
+        "operationId": "DiscoveryController_start_v1",
+        "parameters": [],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "discovery"
+        ]
+      },
+      "get": {
+        "operationId": "DiscoveryController_list_v1",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "discovery"
+        ]
+      }
+    },
+    "/api/v1/discovery/runs/{id}": {
+      "get": {
+        "operationId": "DiscoveryController_get_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "discovery"
+        ]
+      }
+    },
+    "/api/v1/discovery/runs/{id}/cancel": {
+      "post": {
+        "operationId": "DiscoveryController_cancel_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "discovery"
+        ]
+      }
+    },
+    "/api/v1/platforms": {
+      "get": {
+        "operationId": "PlatformsController_list_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "platforms"
+        ]
+      }
+    },
+    "/api/v1/platforms/{key}/connect": {
+      "post": {
+        "operationId": "PlatformsController_connect_v1",
+        "parameters": [
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "platforms"
+        ]
+      }
+    },
+    "/api/v1/platforms/{key}": {
+      "delete": {
+        "operationId": "PlatformsController_disconnect_v1",
+        "parameters": [
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "platforms"
+        ]
+      }
+    },
+    "/api/v1/applications": {
+      "get": {
+        "operationId": "ApplicationsController_list_v1",
+        "parameters": [
+          {
+            "name": "status",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      },
+      "post": {
+        "operationId": "ApplicationsController_create_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "jobId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "mode": {
+                    "default": "MANUAL",
+                    "type": "string",
+                    "enum": [
+                      "MANUAL",
+                      "AUTOMATIC"
+                    ]
+                  },
+                  "resumeId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": [
+                  "jobId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/stats": {
+      "get": {
+        "operationId": "ApplicationsController_stats_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}": {
+      "get": {
+        "operationId": "ApplicationsController_get_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/evidence": {
+      "get": {
+        "operationId": "ApplicationsController_evidence_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/answers/{answerId}": {
+      "put": {
+        "operationId": "ApplicationsController_updateAnswer_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "answerId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "answer": {
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "approve": {
+                    "default": true,
+                    "type": "boolean"
+                  },
+                  "saveForReuse": {
+                    "default": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "answer"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/approve": {
+      "post": {
+        "operationId": "ApplicationsController_approve_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/prepare": {
+      "post": {
+        "operationId": "ApplicationsController_prepare_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/status": {
+      "post": {
+        "operationId": "ApplicationsController_status_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "DISCOVERED",
+                      "NOT_APPLIED",
+                      "READY_TO_APPLY",
+                      "IN_PROGRESS",
+                      "PENDING_APPROVAL",
+                      "APPLIED",
+                      "FAILED",
+                      "REJECTED",
+                      "INTERVIEW",
+                      "OFFER",
+                      "WITHDRAWN",
+                      "NEEDS_VERIFICATION",
+                      "UNKNOWN"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "maxLength": 1000
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/confirm-submitted": {
+      "post": {
+        "operationId": "ApplicationsController_confirm_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/withdraw": {
+      "post": {
+        "operationId": "ApplicationsController_withdraw_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/{id}/sync": {
+      "post": {
+        "operationId": "ApplicationsController_sync_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/applications/external": {
+      "post": {
+        "operationId": "ApplicationsController_external_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "jobId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "capturedJob": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "maxLength": 2000,
+                        "format": "uri"
+                      },
+                      "title": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 300
+                      },
+                      "company": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 300
+                      },
+                      "description": {
+                        "default": "",
+                        "type": "string",
+                        "maxLength": 100000
+                      },
+                      "location": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 300
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "employmentType": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 60
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "postedAt": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 60
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "salaryText": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 200
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "externalId": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 300
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "platformHint": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "sandbox",
+                              "greenhouse",
+                              "lever",
+                              "linkedin",
+                              "indeed",
+                              "naukri"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "title",
+                      "company"
+                    ]
+                  },
+                  "appliedAt": {},
+                  "evidence": {
+                    "type": "string",
+                    "maxLength": 2000
+                  },
+                  "userConfirmed": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "userConfirmed"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/saved-answers": {
+      "get": {
+        "operationId": "SavedAnswersController_list_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/saved-answers/{id}": {
+      "put": {
+        "operationId": "SavedAnswersController_update_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      },
+      "delete": {
+        "operationId": "SavedAnswersController_remove_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "applications"
+        ]
+      }
+    },
+    "/api/v1/extension/status": {
+      "get": {
+        "operationId": "ExtensionController_status_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "extension"
+        ]
+      }
+    },
+    "/api/v1/extension/platform-session": {
+      "post": {
+        "operationId": "ExtensionController_platformSession_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "extension"
+        ]
+      }
+    },
+    "/api/v1/extension/prepared": {
+      "get": {
+        "operationId": "ExtensionController_prepared_v1",
+        "parameters": [
+          {
+            "name": "url",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "extension"
+        ]
+      }
+    },
+    "/api/v1/extension/events": {
+      "post": {
+        "operationId": "ExtensionController_events_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "extension"
+        ]
+      }
+    },
+    "/api/v1/ai/providers": {
+      "get": {
+        "operationId": "AiController_providers_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/ai/configs": {
+      "get": {
+        "operationId": "AiController_list_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      },
+      "post": {
+        "operationId": "AiController_upsert_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "providerKey": {
+                    "type": "string",
+                    "enum": [
+                      "openai",
+                      "anthropic",
+                      "gemini",
+                      "mock"
+                    ]
+                  },
+                  "apiKey": {
+                    "type": "string",
+                    "minLength": 8,
+                    "maxLength": 500
+                  },
+                  "defaultModel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 120
+                  },
+                  "taskModels": {
+                    "default": {},
+                    "type": "object",
+                    "propertyNames": {
+                      "type": "string",
+                      "enum": [
+                        "RESUME_EXTRACTION",
+                        "JOB_ANALYSIS",
+                        "QUESTION_ANSWERING",
+                        "COVER_LETTER",
+                        "APPLICATION_ANSWER"
+                      ]
+                    },
+                    "additionalProperties": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    }
+                  },
+                  "fallbackProviderKeys": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "openai",
+                        "anthropic",
+                        "gemini",
+                        "mock"
+                      ]
+                    }
+                  },
+                  "allowFallback": {
+                    "default": false,
+                    "type": "boolean"
+                  },
+                  "monthlyTokenLimit": {
+                    "default": null,
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "enabled": {
+                    "default": true,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "providerKey",
+                  "defaultModel"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/ai/configs/{id}/activate": {
+      "post": {
+        "operationId": "AiController_activate_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/ai/configs/{id}": {
+      "delete": {
+        "operationId": "AiController_remove_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/ai/configs/{id}/health": {
+      "post": {
+        "operationId": "AiController_health_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/ai/effective": {
+      "get": {
+        "operationId": "AiController_effective_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/ai/usage": {
+      "get": {
+        "operationId": "AiController_usage_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "ai"
+        ]
+      }
+    },
+    "/api/v1/admin/ai/providers/{key}": {
+      "put": {
+        "operationId": "AdminAiProvidersController_update_v1",
+        "parameters": [
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "operationId": "NotificationsController_list_v1",
+        "parameters": [
+          {
+            "name": "unread",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/{id}/read": {
+      "post": {
+        "operationId": "NotificationsController_read_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/read-all": {
+      "post": {
+        "operationId": "NotificationsController_readAll_v1",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/billing/plans": {
+      "get": {
+        "operationId": "BillingController_plans_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "billing"
+        ]
+      }
+    },
+    "/api/v1/billing/subscription": {
+      "get": {
+        "operationId": "BillingController_subscription_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "billing"
+        ]
+      },
+      "post": {
+        "operationId": "BillingController_change_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "billing"
+        ]
+      }
+    },
+    "/api/v1/billing/subscription/cancel": {
+      "post": {
+        "operationId": "BillingController_cancel_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "billing"
+        ]
+      }
+    },
+    "/api/v1/billing/invoices": {
+      "get": {
+        "operationId": "BillingController_invoices_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "billing"
+        ]
+      }
+    },
+    "/api/v1/billing/usage": {
+      "get": {
+        "operationId": "BillingController_usage_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "billing"
+        ]
+      }
+    },
+    "/api/v1/enterprise": {
+      "get": {
+        "operationId": "EnterpriseController_overview_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/settings": {
+      "put": {
+        "operationId": "EnterpriseController_settings_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/members": {
+      "get": {
+        "operationId": "EnterpriseController_members_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/members/{memberId}": {
+      "put": {
+        "operationId": "EnterpriseController_updateMember_v1",
+        "parameters": [
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      },
+      "delete": {
+        "operationId": "EnterpriseController_removeMember_v1",
+        "parameters": [
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/invitations": {
+      "get": {
+        "operationId": "EnterpriseController_invitations_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      },
+      "post": {
+        "operationId": "EnterpriseController_invite_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                  },
+                  "role": {
+                    "default": "ENTERPRISE_USER",
+                    "type": "string",
+                    "enum": [
+                      "ENTERPRISE_ADMIN",
+                      "ENTERPRISE_USER"
+                    ]
+                  },
+                  "teamId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/invitations/{id}": {
+      "delete": {
+        "operationId": "EnterpriseController_revoke_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/invitations/accept": {
+      "post": {
+        "operationId": "EnterpriseController_accept_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/teams": {
+      "get": {
+        "operationId": "EnterpriseController_teams_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      },
+      "post": {
+        "operationId": "EnterpriseController_createTeam_v1",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/teams/{id}": {
+      "delete": {
+        "operationId": "EnterpriseController_deleteTeam_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/analytics": {
+      "get": {
+        "operationId": "EnterpriseController_analytics_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/enterprise/activity": {
+      "get": {
+        "operationId": "EnterpriseController_activity_v1",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "enterprise"
+        ]
+      }
+    },
+    "/api/v1/admin/metrics": {
+      "get": {
+        "operationId": "AdminController_metrics_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/system": {
+      "get": {
+        "operationId": "AdminController_system_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/integrations": {
+      "get": {
+        "operationId": "AdminController_integrations_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "operationId": "AdminController_users_v1",
+        "parameters": [
+          {
+            "name": "q",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/users/{id}": {
+      "put": {
+        "operationId": "AdminController_updateUser_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "platformRole": {
+                    "type": "string",
+                    "enum": [
+                      "USER",
+                      "PLATFORM_ADMIN",
+                      "SUPER_ADMIN"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "ACTIVE",
+                      "SUSPENDED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/enterprises": {
+      "get": {
+        "operationId": "AdminController_enterprises_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createEnterprise_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 120
+                  },
+                  "adminEmail": {
+                    "type": "string",
+                    "format": "email",
+                    "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+                  },
+                  "planKey": {
+                    "default": "enterprise",
+                    "type": "string",
+                    "maxLength": 60
+                  }
+                },
+                "required": [
+                  "name",
+                  "adminEmail"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/enterprises/{id}": {
+      "put": {
+        "operationId": "AdminController_updateEnterprise_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/plans": {
+      "get": {
+        "operationId": "AdminController_plans_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "AdminController_createPlan_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]{2,40}$"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 80
+                  },
+                  "priceMonthlyCents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "priceAnnualCents": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "currency": {
+                    "default": "USD",
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 3
+                  },
+                  "limits": {
+                    "type": "object",
+                    "properties": {
+                      "users": {
+                        "default": 1,
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "searchesPerMonth": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "applicationsPerMonth": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "aiTokensPerMonth": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "storageMb": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "browserMinutesPerMonth": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "features": {
+                    "type": "object",
+                    "properties": {
+                      "autoApply": {
+                        "default": false,
+                        "type": "boolean"
+                      },
+                      "byoAiKey": {
+                        "default": false,
+                        "type": "boolean"
+                      },
+                      "enterprise": {
+                        "default": false,
+                        "type": "boolean"
+                      },
+                      "extension": {
+                        "default": true,
+                        "type": "boolean"
+                      },
+                      "scheduledSearch": {
+                        "default": false,
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "aiMarkupPercent": {
+                    "default": 20,
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 500
+                  },
+                  "isActive": {
+                    "default": true,
+                    "type": "boolean"
+                  },
+                  "isCustom": {
+                    "default": false,
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "key",
+                  "name",
+                  "priceMonthlyCents",
+                  "priceAnnualCents",
+                  "limits",
+                  "features"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/plans/{key}": {
+      "put": {
+        "operationId": "AdminController_updatePlan_v1",
+        "parameters": [
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/subscriptions": {
+      "get": {
+        "operationId": "AdminController_subscriptions_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/invoices": {
+      "get": {
+        "operationId": "AdminController_invoices_v1",
+        "parameters": [
+          {
+            "name": "status",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/invoices/{id}/mark-paid": {
+      "post": {
+        "operationId": "AdminController_markPaid_v1",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/billing/run": {
+      "post": {
+        "operationId": "AdminController_runBilling_v1",
+        "parameters": [],
+        "responses": {
+          "202": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/audit-logs": {
+      "get": {
+        "operationId": "AdminController_audit_v1",
+        "parameters": [
+          {
+            "name": "action",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actor",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/settings": {
+      "get": {
+        "operationId": "AdminController_settings_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/v1/admin/settings/{key}": {
+      "put": {
+        "operationId": "AdminController_setSetting_v1",
+        "parameters": [
+          {
+            "name": "key",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "admin"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "AutoApply API",
+    "description": "",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "cookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "aa_session"
+      },
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {}
+  }
+}
